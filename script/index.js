@@ -30,7 +30,7 @@ const fetchDataWithTimeout = (url, options, timeout = 5000) =>
       productCard.classList.add('product-card');
       
       const productLink = document.createElement('a');
-      productLink.href = `product/index.html?id=${product.id}`;
+      productLink.href = `/product/index.html?id=${product.id}`;
       productLink.classList.add('product-link');
       
       productLink.innerHTML = `
