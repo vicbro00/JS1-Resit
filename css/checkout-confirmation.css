@@ -1,0 +1,21 @@
+/*Body styling*/
+main {
+    text-align: center;
+  }
+  
+  main i {
+    color: rgb(23, 8, 114);
+    font-size: 10em;
+  }
+  
+  .button {
+    font-family: "Open Sans";
+    background-color: rgb(23, 8, 114);
+    border: solid black;
+    cursor: pointer;
+    color: white;
+    padding: 1em 2em;
+    text-align: center;
+    display: inline-block;
+    margin: 1em 0;
+  }

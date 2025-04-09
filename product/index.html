@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rainy Days Product Page">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Game Hub | Product Page</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/Pictures/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Pictures/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Pictures/favicon-16x16.png">
+    <link rel="stylesheet" href="/css/basic-styling.css">
+    <link rel="stylesheet" href="/css/product.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/7d33f7d3ef.js" crossorigin="anonymous"></script>
+    <script src="/script/api.js" defer></script>
+    <script src="/script/cart.js" defer></script>
+    <script src="/script/components.js" defer></script>
+    <script src="/script/products.js" defer></script>
+  </head>
+
+  <body id="page-index">
+    <div id="pageTransitionLoader" class="loader"></div>
+    <div id="globalLoader" class="loader"></div>
+    <header>
+      <div>
+        <div id="offScreen" class="off-screen">
+          <ul class="menu">
+            <li><a class="menuLink" href="/index.html">Home</a></li>
+            <li>Products</li>
+            <li><a class="menuLink" href="/checkout/index.html">Checkout</a></li>
+          </ul>
+        </div>
+        <nav>
+          <div class="hide-mobile">
+            <ul>
+              <li><a href="/index.html">Home</a></li>
+              <li>Products</li>
+              <li><a href="/checkout/index.html">Checkout</a></li>
+            </ul>
+          </div>
+          <div class="hamburger-menu" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+          <div class="cart">
+            <div class="cart-button">
+              <i class="fa-solid fa-cart-shopping" onclick="toggleCart()"></i>
+              <p onclick="toggleCart()">Cart</p>
+            </div>
+            <div id="cartMenu">
+              <div class="cart-content">
+                <div class="products">
+                  <div class="container">
+                    <div class="head"><p>Products</p></div>
+                    <div id="cartItem">Your cart is empty</div>
+                  </div>
+                </div>
+                <div class="foot"></div>
+                <h3>Total</h3>
+                <h2 id="total">£0.00</h2>
+              </div>
+              <a href="/checkout/index.html"><button id="checkoutBtn">Continue to checkout</button></a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+        <div id="productDetails" class="product-details"></div>
+      <a href="/checkout/index.html">
+        <h3>Proceed to Checkout
+          <i class="fa-solid fa-arrow-right"></i>
+        </h3>
+      </a>
+    </main>
+
+    <div class="border"></div>
+    <footer>
+      <div class="footer-left">
+        <a href="/index.html">
+          <img src="/Pictures/android-chrome-192x192.png" alt="A blue logo showing the Gamehub title">
+        </a>
+        <div class="copyright">Copyright &copy;</div>
+        <div>
+          <i id="facebook" class="fa-brands fa-square-facebook"></i>
+          <i id="instagram" class="fa-brands fa-square-instagram"></i>
+          <i id="youtube" class="fa-brands fa-youtube"></i>
+        </div>
+      </div>
+      <div class="footer-right">
+        <h3 id="support">Support</h3>
+        <h3 id="warehouses">Warehouses</h3>
+        <h3 id="about">About</h3>
+        <h3 id="contact">Contact</h3>
+      </div>
+    </footer>
+  </body>
+</html>
