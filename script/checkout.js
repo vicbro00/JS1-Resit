@@ -35,6 +35,13 @@ function checkoutConfirm() {
   cart = [];
   totalPrice = 0;
 
+  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (cartItems.length === 0) {
+    alert("No items in cart.");
+    return;
+  }
+
   updateLocalStorage();
 
   const checkoutContainer = document.getElementById("checkoutContainer");
