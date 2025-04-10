@@ -1,16 +1,15 @@
+// Fetches cart items to display on checkout page
 document.addEventListener("DOMContentLoaded", () => {
-    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    const totalPrice = parseFloat(localStorage.getItem("totalPrice")) || 0;
-  
-    const checkoutContainer = document.getElementById("checkoutContainer");
-    const checkoutTotal = document.getElementById("checkoutTotal");
-  
-    if (cartItems.length === 0) {
-      checkoutContainer.innerHTML = "<p>Your cart is empty.</p>";
-      checkoutTotal.textContent = "Total: £0.00";
-      return;
-    }
-  
+  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalPrice = parseFloat(localStorage.getItem("totalPrice")) || 0;
+
+  const checkoutContainer = document.getElementById("checkoutContainer");
+  const checkoutTotal = document.getElementById("checkoutTotal");
+
+  if (cartItems.length === 0) {
+    checkoutContainer.innerHTML = "<p>Your cart is empty.</p>";
+    checkoutTotal.textContent = "Total: £0.00";
+  } else {
     cartItems.forEach(product => {
       const item = document.createElement("div");
       item.classList.add("checkout-item");
@@ -27,14 +26,18 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       checkoutContainer.appendChild(item);
     });
-  
+
     checkoutTotal.textContent = `Total: £${totalPrice.toFixed(2)}`;
+  }
+
+  const completeOrderButton = document.getElementById("completeOrderButton");
+  if (completeOrderButton) {
+    completeOrderButton.addEventListener("click", checkoutConfirm);
+  }
 });
 
+// Confirms checkout when clicking button and removes items from cart
 function checkoutConfirm() {
-  cart = [];
-  totalPrice = 0;
-
   const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
   if (cartItems.length === 0) {
@@ -42,7 +45,8 @@ function checkoutConfirm() {
     return;
   }
 
-  updateLocalStorage();
+  localStorage.removeItem("cart");
+  localStorage.removeItem("totalPrice");
 
   const checkoutContainer = document.getElementById("checkoutContainer");
   const checkoutTotal = document.getElementById("checkoutTotal");
@@ -59,10 +63,3 @@ function checkoutConfirm() {
 
   alert("Order completed successfully!");
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  const completeOrderButton = document.getElementById("completeOrderButton");
-  if (completeOrderButton) {
-    completeOrderButton.addEventListener("click", checkoutConfirm);
-  }
-});

@@ -2,6 +2,7 @@
 let cart = [];
 let totalPrice = 0;
 
+// Fetches stored cart
 try {
   const storedCart = localStorage.getItem('cart');
   if (storedCart !== null) {
@@ -11,6 +12,7 @@ try {
   console.error('Error parsing cart data from localStorage:', error);
 }
 
+// Fetches stored cart price
 try {
   const storedTotalPrice = localStorage.getItem('totalPrice');
   if (storedTotalPrice !== null) {
@@ -32,6 +34,7 @@ async function removeFromCart(productId) {
   }
 }
 
+// Changes item quantity in cart
 async function changeQuantity(productId, change) {
   const product = cart.find(prod => prod.id === productId);
   if (!product) return;
@@ -45,6 +48,7 @@ async function changeQuantity(productId, change) {
   updateCartUI();
 }
 
+// Handles button interactions with loader
 async function handleCartButtonClick(event) {
   const button = event.target;
   if (!button.dataset.id) return;
@@ -61,6 +65,7 @@ async function handleCartButtonClick(event) {
   });
 }
 
+// Toggles cart when clicked with loader
 async function toggleCart() {
   withGlobalLoader(async () => {
     const cartMenu = document.getElementById('cartMenu');
@@ -73,28 +78,27 @@ async function toggleCart() {
 
 // Initialize cart functionality
 document.addEventListener('DOMContentLoaded', () => {
-  // Handle cart item buttons
   const cartItemContainer = document.getElementById('cartItem');
   if (cartItemContainer) {
     cartItemContainer.addEventListener('click', handleCartButtonClick);
   }
 
-  // Initialize any add-to-cart buttons on this page
   const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
   addToCartButtons.forEach(button => {
     button.addEventListener('click', (event) => {
       const productId = event.target.getAttribute('data-id');
       const product = window.products?.find(prod => prod.id === productId);
       if (product) {
-        withGlobalLoader(() => new Promise(resolve => {
+        withGlobalLoader(async () => {
           addToCart(product);
-          setTimeout(resolve, 1000);
-        }));
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        });
       }
     });
   });
 });
 
+// Add a product to the cart or increase quantity if it already exists
 function addToCart(product) {
   if (!product || !product.id || !product.discountedPrice || !product.image?.url) return;
 
@@ -117,7 +121,7 @@ function addToCart(product) {
   }
 }
 
-// Update localStorage
+// Update localStorage after added to cart
 function updateLocalStorage() {
   try {
     localStorage.setItem('cart', JSON.stringify(cart));

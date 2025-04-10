@@ -1,25 +1,31 @@
-//index.js
+// Fetches products from api
 const fetchDataWithTimeout = (url, options, timeout = 5000) => 
     Promise.race([
       fetch(url, options),
       new Promise((_, reject) => setTimeout(() => reject(new Error('Request timed out')), timeout))
     ]);
   
-  // Add the missing fetchProducts function
   async function fetchProducts() {
     try {
       const response = await fetchDataWithTimeout('https://v2.api.noroff.dev/gamehub');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+  
       const data = await response.json();
       return data.data;
     } catch (error) {
       console.error('Error fetching products:', error);
+  
+      const container = document.getElementById('cardsContainer');
+      if (container) {
+        container.innerHTML = '<p>Failed to load products. Please try again later.</p>';
+      }
       return null;
     }
   }
   
+  // Displays products on page
   function displayProducts(products) {
     const container = document.getElementById('cardsContainer');
     if (!container) return console.error('Container not found');
@@ -34,7 +40,7 @@ const fetchDataWithTimeout = (url, options, timeout = 5000) =>
       productLink.classList.add('product-link');
       
       productLink.innerHTML = `
-        <img src="${product.image.url}" alt="${product.title}">
+        <img src="${product.image?.url || 'https://via.placeholder.com/300x200?text=No+Image'}" alt="${product.title}">
         <h4>${product.title}</h4>
       `;
       
@@ -69,6 +75,7 @@ const fetchDataWithTimeout = (url, options, timeout = 5000) =>
     });
   }
   
+  // Filters products on page
   function filterProducts(products, criteria) {
     if (criteria === 'all') return products;
     
@@ -84,6 +91,7 @@ const fetchDataWithTimeout = (url, options, timeout = 5000) =>
     });
   }
   
+  // Filters based on clicked buttons
   async function setupFilterButtons(products) {
     document.querySelectorAll('.filter-btn').forEach(button => {
       button.addEventListener('click', (event) => {

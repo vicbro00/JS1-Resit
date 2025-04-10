@@ -6,7 +6,7 @@ function getProductIdFromUrl() {
   return urlParams.get('id');
 }
 
-// Validate UUID format
+// Validates the Id
 function isValidId(id) {
   const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   return uuidRegex.test(id);
@@ -48,11 +48,11 @@ function displayProductDetails(product) {
 
   container.innerHTML = `
     <div class="product-detail-card">
-      <img src="${product.image.url}" alt="${product.image.alt || product.title}" class="product-image">
+      <img src="${product.image?.url || 'https://via.placeholder.com/300x200?text=No+Image'}" alt="${product.image?.alt || product.title}" class="product-image">
       <div class="product-info">
         <h2>${product.title}</h2>
         <p class="description">${product.description}</p>
-        <p class="price">$${product.discountedPrice || product.price}</p>
+        <p class="price">$${product.discountedPrice ?? product.price}</p>
         ${product.sizes ? `<p class="sizes">Sizes: ${product.sizes.join(', ')}</p>` : ''}
         ${product.baseColor ? `<p class="color">Color: ${product.baseColor}</p>` : ''}
         ${product.gender ? `<p class="gender">Gender: ${product.gender}</p>` : ''}
@@ -61,7 +61,6 @@ function displayProductDetails(product) {
     </div>
   `;
 
-  // Initialize add to cart button
   const addToCartButton = container.querySelector('.add-to-cart-btn');
   if (addToCartButton) {
     addToCartButton.addEventListener('click', () => {
@@ -75,7 +74,6 @@ function displayProductDetails(product) {
   }
 }
 
-// Initialize product page
 async function initializeProductPage() {
   const productId = getProductIdFromUrl();
   if (!productId) {
@@ -97,7 +95,6 @@ async function initializeProductPage() {
   }
 }
 
-// Initialize product page if on product detail page
 if (document.getElementById('productDetails')) {
   document.addEventListener('DOMContentLoaded', initializeProductPage);
 }

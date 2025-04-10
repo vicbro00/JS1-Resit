@@ -1,4 +1,4 @@
-// Page transition loader control
+// Page transition loader
 function showPageTransitionLoader() {
     const loader = document.getElementById('pageTransitionLoader');
     if (loader) {
@@ -13,9 +13,7 @@ function showPageTransitionLoader() {
     }
   }
   
-  // Intercept all link clicks
   document.addEventListener('DOMContentLoaded', () => {
-    // Show loader when any link is clicked
     document.body.addEventListener('click', (event) => {
       const link = event.target.closest('a');
       if (link && link.href && !link.href.includes('javascript:') && 
@@ -23,18 +21,15 @@ function showPageTransitionLoader() {
         event.preventDefault();
         showPageTransitionLoader();
         
-        // Delay navigation slightly to allow loader to show
         setTimeout(() => {
           window.location.href = link.href;
         }, 1000);
       }
     });
   
-    // Hide loader when page is fully loaded
     window.addEventListener('load', hidePageTransitionLoader);
   });
   
-  // Also show loader when going back/forward
   window.addEventListener('pageshow', (event) => {
     if (event.persisted) {
       hidePageTransitionLoader();
@@ -45,20 +40,19 @@ function showPageTransitionLoader() {
   function showLoader() {
     const loader = document.getElementById('globalLoader');
     if (loader) {
-      console.log('Showing loader');
       loader.style.display = 'block';
     }
   }
   
+  // Hide loader
   function hideLoader() {
     const loader = document.getElementById('globalLoader');
     if (loader) {
-      console.log('Hiding loader');
       loader.style.display = 'none';
     }
   }
   
-  // Wrapper to show loader during async actions
+  // Shows loader on async actions
   async function withGlobalLoader(callback) {
     showLoader();
     const startTime = Date.now();
@@ -67,7 +61,6 @@ function showPageTransitionLoader() {
       const result = callback();
       const callbackResult = result instanceof Promise ? await result : result;
       
-      // Calculate remaining time to reach 1 second
       const elapsed = Date.now() - startTime;
       const remainingTime = Math.max(0, 1000 - elapsed);
       
@@ -81,7 +74,6 @@ function showPageTransitionLoader() {
     }
   }
   
-  // Render cart items
   function renderCartItems(cartItems) {
     const container = document.getElementById('cartItem');
     if (!container) return;
