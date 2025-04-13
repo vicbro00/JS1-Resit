@@ -90,7 +90,8 @@
   }
   
   /* Buttons */
-  button {
+  button,
+  .button {
     font-family: "Open Sans";
     background-color: rgb(23, 8, 114);
     border: solid black;
@@ -98,6 +99,11 @@
     color: white;
     padding: 1em 2em;
     text-align: center;
+  }
+
+  button a {
+    text-decoration: none;
+    color: white;
   }
   
   /* Cart menu styling */
