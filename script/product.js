@@ -67,11 +67,17 @@ function displayProductDetails(product) {
         ${product.sizes ? `<p class="sizes">Sizes: ${product.sizes.join(', ')}</p>` : ''}
         ${product.baseColor ? `<p class="color">Color: ${product.baseColor}</p>` : ''}
         ${product.gender ? `<p class="gender">Gender: ${product.gender}</p>` : ''}
+        <p class="genre">Genre: ${product.genre}</p>
+        <p class="released">Released: ${product.released}</p>
+        <p class="age-rating">Age Rating: ${product.ageRating}</p>
+        ${product.onSale ? `<p class="on-sale">On Sale!</p>` : ''}
+        ${product.tags ? `<p class="tags">Tags: ${product.tags.join(', ')}</p>` : ''}
+        ${product.favorite ? `<p class="favorite">Favorite!</p>` : ''}
         <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
       </div>
     </div>
   `;
-
+  
   const addToCartButton = container.querySelector('.add-to-cart-btn');
   if (addToCartButton) {
     addToCartButton.addEventListener('click', () => {
@@ -82,8 +88,6 @@ function displayProductDetails(product) {
         }));
       }
     });
-  } else {
-    console.error('Add to cart button not found');
   }
 }
 
