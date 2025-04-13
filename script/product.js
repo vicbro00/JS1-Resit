@@ -15,33 +15,44 @@ function isValidId(id) {
 // Fetch product details from API
 async function fetchProductDetails(productId) {
   if (!isValidId(productId)) {
+    console.error(`Invalid product ID format: ${productId}`);
     throw new Error('Invalid product ID format');
   }
 
   const apiUrl = `https://v2.api.noroff.dev/gamehub/${productId}`;
 
-  const response = await fetch(apiUrl);
-  if (!response.ok) {
-    throw new Error(response.status === 404
-      ? `Product with ID ${productId} not found`
-      : `HTTP error! Status: ${response.status}`);
-  }
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error(response.status === 404
+        ? `Product with ID ${productId} not found`
+        : `HTTP error! Status: ${response.status}`);
+    }
 
-  const responseData = await response.json();
-  if (!responseData.data) {
-    throw new Error('Unexpected API response format');
-  }
+    const responseData = await response.json();
+    if (!responseData.data) {
+      console.error(`Unexpected API response: ${JSON.stringify(responseData)}`);
+      throw new Error('Unexpected API response format');
+    }
 
-  return responseData.data;
+    return responseData.data;
+  } catch (error) {
+    console.error(`Error fetching product details for ${productId}:`, error);
+    throw error;
+  }
 }
 
 // Display product details on page
 function displayProductDetails(product) {
   currentProduct = product;
   const container = document.getElementById('productDetails');
-  if (!container) return;
+  if (!container) {
+    console.error('Product details container not found');
+    return;
+  }
 
   if (!product || !product.title || !product.image) {
+    console.error('Invalid product data:', product);
     container.innerHTML = '<p>Invalid product data</p>';
     return;
   }
@@ -71,12 +82,15 @@ function displayProductDetails(product) {
         }));
       }
     });
+  } else {
+    console.error('Add to cart button not found');
   }
 }
 
 async function initializeProductPage() {
   const productId = getProductIdFromUrl();
   if (!productId) {
+    console.error('No product ID found in URL');
     window.location.href = '/products.html';
     return;
   }
