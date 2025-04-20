@@ -148,10 +148,6 @@ main i {
 
 /* Desktop styles */
 @media (min-width: 769px) {
-  .hide-desktop {
-    display: block;
-  }
-
   .forms fieldset {
     grid-template-columns: 1fr 1fr;
   }
