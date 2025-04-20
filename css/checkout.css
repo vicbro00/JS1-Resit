@@ -146,16 +146,6 @@ main i {
   flex-direction: column;
 }
 
-/* Hide mobile only on mobile */
-.hide-mobile {
-  display: block;
-}
-
-/* Hide desktop only on desktop */
-.hide-desktop {
-  display: block;
-}
-
 /* Desktop styles */
 @media (min-width: 769px) {
   .hide-desktop {
